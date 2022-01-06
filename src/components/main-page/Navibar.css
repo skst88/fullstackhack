@@ -1,0 +1,24 @@
+.navbar {
+  padding: 0;
+  height: 70px;
+}
+.navbar-bla {
+  background-color: #f5eee6;
+}
+.cart {
+  font-size: 25px;
+  padding-right: 20px;
+}
+
+.search {
+  font-size: 25px;
+  padding-right: 20px;
+}
+.registration a {
+  font-size: 25px;
+  padding-right: 15px;
+  color: black;
+}
+.navbar-main {
+  width: 100%;
+}

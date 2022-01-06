@@ -1,0 +1,88 @@
+* {
+  font-family: monospace;
+}
+
+.smallest-choices-bla {
+  width: 100%;
+}
+.smallest-choices {
+  text-align: center;
+  padding-top: 100px;
+  width: 50%;
+}
+
+.best-seller {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.smallest-choices-shop {
+  margin-top: 40px;
+  width: 270px;
+  border-radius: 50px;
+  border: none;
+  height: 55px;
+  background-color: #f5eee6;
+}
+
+.wrapper {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-demo {
+  width: 17ch;
+  animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 3em;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+}
+
+.order {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.second-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.third-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.ordering button {
+  text-align: center;
+  margin-top: 50px;
+  width: 270px;
+  border-radius: 50px;
+  border: none;
+  height: 55px;
+  background-color: #f5eee6;
+}
+
+.explore {
+  text-align: center;
+  margin-top: 50px;
+}
