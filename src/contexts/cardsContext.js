@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useReducer } from "react";
 import $axios from "../axios";
-import { API } from "../helpers/const";
 
 export const cardsContext = React.createContext();
 const INIT_STATE = {
@@ -15,6 +13,8 @@ const reducer = (state = INIT_STATE, action) => {
       return { ...state, cards: action.payload };
     case "GET_PRODUCTS_TO_EDIT":
       return { ...state, cardToEdit: action.payload };
+    case "GET_COUNT":
+      return { ...state, countOfCards: action.payload };
     case "CLEAR_STATE":
       return { ...state, cardToEdit: action.payload };
     default:
@@ -34,10 +34,25 @@ const CardsContextProvider = (props) => {
       console.log(e);
     }
   };
-  const getCards = async () => {
+
+  // ? Read
+
+  const getCards = async (page = "1") => {
     try {
-      const { data } = await $axios.get("/product");
-      console.log(data.rows);
+      let filter = window.location.search;
+      let filter1 = window.location.search;
+      if (filter) filter += `&page=${page}`;
+      else filter += `?page=${page}`;
+
+      const { data } = await $axios(`product/${filter}`);
+      if (filter1) filter1 += `&limit=10000`;
+      else filter1 += `?limit=10000`;
+      const response = await $axios(`product/${filter1}`);
+      dispatch({
+        type: "GET_COUNT",
+        payload: response.data.rows.length,
+      });
+      // console.log(data.rows);
       dispatch({
         type: "GET_CARDS",
         payload: data.rows,
@@ -98,7 +113,7 @@ const CardsContextProvider = (props) => {
         saveEditedProducts,
         cards: state.cards,
         cardToEdit: state.cardToEdit,
-        state,
+        countOfCards: state.countOfCards,
       }}
     >
       {props.children}
