@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import $axios from "../axios";
-
+import jwt_decode from "jwt-decode";
 export const registrationContext = React.createContext();
 const INIT_STATE = {
   user: null,
@@ -27,7 +27,6 @@ const RegistrationContextProvider = (props) => {
 
   const signUpUser = async (email, password) => {
     try {
-      console.log("data");
       let res = await $axios("user");
 
       let { data } = await $axios.post("user/signup", {
@@ -36,6 +35,9 @@ const RegistrationContextProvider = (props) => {
       });
       localStorage.setItem("token", JSON.stringify(data));
       await $axios("user");
+
+      const user = jwt_decode(data.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch({
         type: "LOGIN_USER",
         payload: data,
@@ -58,14 +60,14 @@ const RegistrationContextProvider = (props) => {
   };
   const loginUser = async (email, password) => {
     try {
-      let res = await $axios("user");
-      let user = res.data.find((user) => user.email === email);
       let { data } = await $axios.post("user/login", {
         password,
         email,
       });
       localStorage.setItem("token", JSON.stringify(data));
       await $axios("user");
+      const user = jwt_decode(data.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch({
         type: "LOGIN_USER",
         payload: data,

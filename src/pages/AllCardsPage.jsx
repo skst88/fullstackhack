@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import $axios from "../axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cardsContext } from "../contexts/cardsContext";
 import "./AllCardsPage.css";
+import Pagination from "../components/main-page/Pagination";
 
 const AllCardsPage = () => {
   const [data, setData] = useState([]);
@@ -41,22 +42,7 @@ const AllCardsPage = () => {
     }
   };
   const navigate = useNavigate();
-
-  // const handleSearch = async (e) => {
-  //   const value = e.target.value;
-  //   setSearch(value);
-  //   const { data } = await $axios.get("/product?limit=20&q=" + value);
-  //   console.log(data);
-  //   setData(data.rows);
-  // };
-
-  // const handleFilter = async (e) => {
-  //   const value = e.target.value;
-  //   getCards(value);
-  //   console.log(data);
-  //   setData(data.rows);
-  // };
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -75,102 +61,132 @@ const AllCardsPage = () => {
 
   return (
     <>
-      <center>
-        <div className="main-addproducts">
-          <h3>Add products</h3>
-        </div>
-        <div className="add-products">
-          <div className="search-products">
+      <div className="addproducts-page">
+        <center>
+          <div>
+            <Link to="/">
+              <h3 className="main-addproducts">Add products</h3>
+            </Link>
+          </div>
+          <div className="add-products">
+            <div className="search-products">
+              <h3>Search what you want</h3>
+              <input
+                type="text"
+                placeholder="Search your cards"
+                onChange={(e) => {
+                  filterCards("q", e.target.value);
+                }}
+              />
+            </div>
+            <br />
+            <h3>Add products for your client</h3>
             <input
               type="text"
-              placeholder="Search your cards"
-              onChange={(e) => {
-                filterCards("q", e.target.value);
-              }}
+              name="title"
+              placeholder="Name of card"
+              onChange={handleChange}
+              value={inputs.title}
             />
-          </div>
-          <br />
-          <input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            value={inputs.title}
-          />
-          <input
-            type="text"
-            name="description"
-            onChange={handleChange}
-            value={inputs.description}
-          />
-          <input
-            type="text"
-            name="price"
-            onChange={handleChange}
-            value={inputs.price}
-          />
-          <input
-            type="text"
-            name="image"
-            onChange={handleChange}
-            value={inputs.image}
-          />
-          <select name="tag" id="" onChange={handleChange}>
-            <option value="Greeting card">Greeting card</option>
-            <option value="Notebook">Notebook</option>
-            <option value="Assorted card sets">Assorted card sets</option>
-            <option value="Wallpaper">Wallpaper</option>
-          </select>
-          <div>
-            <select
-              id=""
-              value={brandValue}
-              onChange={(e) => {
-                filterCards("tag", e.target.value);
-              }}
-            >
+            <input
+              type="text"
+              name="description"
+              placeholder="Description of card"
+              onChange={handleChange}
+              value={inputs.description}
+            />
+            <input
+              type="text"
+              name="price"
+              placeholder="Price of card"
+              onChange={handleChange}
+              value={inputs.price}
+            />
+            <input
+              type="text"
+              name="image"
+              placeholder="Url"
+              onChange={handleChange}
+              value={inputs.image}
+            />
+
+            <select name="tag" id="" onChange={handleChange}>
               <option value="Greeting card">Greeting card</option>
               <option value="Notebook">Notebook</option>
               <option value="Assorted card sets">Assorted card sets</option>
               <option value="Wallpaper">Wallpaper</option>
             </select>
-          </div>
-          <button onClick={handleClick}>Create</button>
-          <div className="main-cards">
-            {cards ? (
-              cards.map((p) => (
-                <div key={p.id} className="main-cardss">
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Img variant="top" src={p.image} />
-                    <Card.Body>
-                      <Card.Title>{p.title}</Card.Title>
-                      <Card.Text>{p.description}</Card.Text>
-                      <Card.Title>{p.price}</Card.Title>
-                      <Card.Title>{p.tag}</Card.Title>
-                      <Button
-                        variant="primary"
-                        onClick={() => {
-                          navigate(`/detail/${p.id}`);
-                        }}
-                      >
-                        Update
-                      </Button>
+            <br />
+            <button className="create-btn" onClick={handleClick}>
+              Create
+            </button>
+            <div className="filterside">
+              <h3 className="filterword">Filter</h3>
+              <select
+                id=""
+                value={brandValue}
+                onChange={(e) => {
+                  filterCards("tag", e.target.value);
+                }}
+              >
+                <option value="Greeting card">Greeting card</option>
+                <option value="Notebook">Notebook</option>
+                <option value="Assorted card sets">Assorted card sets</option>
+                <option value="Wallpaper">Wallpaper</option>
+              </select>
+            </div>
 
-                      <Button
-                        onClick={() => handleDelete(p.id)}
-                        variant="primary"
-                      >
-                        Delete
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </div>
-              ))
-            ) : (
-              <></>
-            )}
+            <div className="main-cards">
+              {cards ? (
+                cards.map((p) => (
+                  <div key={p.id} className="main-cardss">
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src={p.image} />
+                      <Card.Body>
+                        <Card.Title>{p.title}</Card.Title>
+                        <Card.Text>{p.description}</Card.Text>
+                        <Card.Title>{p.price}</Card.Title>
+                        <Card.Title>{p.tag}</Card.Title>
+                        <div className="buttons-in-card">
+                          {user ? (
+                            user.role === "ADMIN" ? (
+                              <>
+                                <Button
+                                  onClick={() => {
+                                    navigate(`/detail/${p.id}`);
+                                  }}
+                                >
+                                  Update
+                                </Button>
+                                <Button onClick={() => handleDelete(p.id)}>
+                                  Delete
+                                </Button>
+                              </>
+                            ) : (
+                              <></>
+                            )
+                          ) : (
+                            <></>
+                          )}
+
+                          <Button onClick={() => navigate("detail/" + p.id)}>
+                            More...
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                ))
+              ) : (
+                <h2>Loading...</h2>
+              )}
+            </div>
+            <div className="pagination">
+              <Pagination />
+            </div>
           </div>
-        </div>
-      </center>
+        </center>
+      </div>
     </>
   );
 };

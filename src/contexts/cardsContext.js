@@ -63,6 +63,8 @@ const CardsContextProvider = (props) => {
     }
   };
 
+  // ? Update
+
   const getProductsToEdit = async (id) => {
     try {
       const response = await $axios.get(`product/${id}`);
@@ -93,6 +95,8 @@ const CardsContextProvider = (props) => {
     };
     dispatch(action);
   };
+
+  // ? Delete
 
   const deleteCard = async (id) => {
     try {

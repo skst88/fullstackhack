@@ -86,3 +86,17 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.pagination-div button {
+  background-color: #b48d62;
+  border: none;
+  padding: 0 20px;
+  height: 30px;
+  margin-top: 13px;
+  list-style: none;
+  margin-right: 10px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+}

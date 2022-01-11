@@ -1,20 +1,64 @@
-.main-addproducts {
-  margin-top: 20px;
+.addproducts-page {
+  width: 100vw;
+  height: 160vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(https://www.printables.se/bilder/printables/kuvert/mitten_burnt.gif);
 }
 
-.add-products {
-  margin-top: 20px;
+.search-products ::placeholder {
+  color: white;
+  text-align: center;
 }
 
 .search-products input {
   width: 30%;
   height: 50px;
-  background-color: blanchedalmond;
+  background-color: #b48d62;
   border: none;
+  border-radius: 15px;
+  box-shadow: 0px 5px 10px 2px rgba(180, 141, 98, 1);
 }
 
 .main-cards {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.filter {
+  margin-top: 20px;
+}
+.filterside select {
+  width: 30%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.buttons-in-card button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #b48d62;
+  border: none;
+}
+
+.main-addproducts {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid;
+}
+
+.filterword {
+  margin-top: 10px;
+}
+
+.create-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #b48d62;
+  color: white;
+  border-radius: 5px;
 }

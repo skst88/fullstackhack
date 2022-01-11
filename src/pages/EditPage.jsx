@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
 import { cardsContext } from "../contexts/cardsContext";
+import "./EditPage.css";
 
 const EditPage = () => {
   const { saveEditedProducts, getProductsToEdit, cardToEdit } =
@@ -22,7 +23,7 @@ const EditPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h2>Редактирование</h2>
+      <h2 className="editproducts-page">Edit page</h2>
       {cardToEdit ? (
         <Formik
           validationSchema={schema}
@@ -40,10 +41,10 @@ const EditPage = () => {
               onSubmit={handleSubmit}
             >
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Название кроссовок</Form.Label>
+                <Form.Label>Name of card</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Введите название кроссовок"
+                  placeholder="Name of card"
                   name="title"
                   onChange={handleChange}
                   isValid={!errors.title && touched.title}
@@ -56,7 +57,7 @@ const EditPage = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail1">
-                <Form.Label>Брэнд товара</Form.Label>
+                <Form.Label>Category of card</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   name="tag"
@@ -65,8 +66,7 @@ const EditPage = () => {
                   isInvalid={!!errors.tag}
                   value={values.tag}
                 >
-                  <option>Выберите брэнд</option>
-                  <option value="Greeting card">reeting card</option>
+                  <option value="Greeting card">Greeting card</option>
                   <option value="Notebook">Notebook</option>
                   <option value="Assorted card sets">Assorted card sets</option>
                   <option value="Wallpaper">Wallpaper</option>
@@ -77,10 +77,10 @@ const EditPage = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Описание товара</Form.Label>
+                <Form.Label>Description of card</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Введите описание кроссовок"
+                  placeholder="Description of card"
                   name="description"
                   onChange={handleChange}
                   isValid={!errors.description && touched.description}
@@ -92,10 +92,10 @@ const EditPage = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Картинка товара</Form.Label>
+                <Form.Label>Image</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Введите описание кроссовок"
+                  placeholder="Image"
                   name="image"
                   onChange={handleChange}
                   isValid={!errors.image && touched.image}
@@ -107,10 +107,10 @@ const EditPage = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail2">
-                <Form.Label>Цена товара</Form.Label>
+                <Form.Label>Price</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Введите цену товара"
+                  placeholder="Price"
                   name="price"
                   onChange={handleChange}
                   isValid={!errors.price && touched.price}
@@ -130,7 +130,7 @@ const EditPage = () => {
                 variant="primary"
                 type="submit"
               >
-                Отправить
+                Send
               </Button>
             </Form>
           )}
