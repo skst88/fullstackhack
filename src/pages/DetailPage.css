@@ -1,4 +1,4 @@
-.editproducts-page {
+.detail-page-bla {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
@@ -6,9 +6,4 @@
       rgba(255, 255, 255, 0.5)
     ),
     url(https://www.printables.se/bilder/printables/kuvert/mitten_burnt.gif);
-}
-
-.editt {
-  text-align: center;
-  padding-top: 25px;
 }
